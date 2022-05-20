@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PasswordRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
-use App\Repositories\UserRepository; //criptografia
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -41,6 +41,28 @@ class UserController extends Controller
     {
         $this->repository->update($request->all(), $user->id, 'id');
         return redirect()->back()->with(['success' => "Alterado com sucesso"]);
+    }
+
+    public function destroy(user $user, Request $request)
+    {
+        $this->authorize('delete', $user);
+        $this->repository->delete($user);
+        return redirect()->route('home');
+    }
+
+    public function deleted(Request $request)
+    {
+        $this->authorize('view-any', User::class);
+        $users = $this->repository->bigSearch($request->all() + ['deleted_at' => null]);
+        $links = $users->appends($request->except('page'));
+        return view($this::ROUTE_VIEW . '.deleted', compact('users', 'links'));
+    }
+
+    public function restore($user, Request $request)
+    {
+        $this->authorize('restore', User::class);
+        $this->repository->restore($user);
+        return redirect()->route($this::ROUTE_VIEW . '.show', ['user' => $especie]);
     }
 
     public function passwordUpdate(User $user, PasswordRequest $request)

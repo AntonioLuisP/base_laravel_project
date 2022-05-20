@@ -37,6 +37,9 @@ class UserRepository
         $user = $this->find($id);
 
         $user->name = $data['name'];
+        if($data['nickname']){
+            $user->nickname = $data['nickname'];
+        }
 
         $user->save();
     }
