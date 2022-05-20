@@ -18,6 +18,19 @@
                 </span>
             @enderror
         </div>
+        <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid email is required: ex@abc.xyz">
+            <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                <i class="mdi mdi-account" aria-hidden="true"></i>
+            </a>
+            <input id="nickname" type="text"
+                class="input100 border-start-0 ms-0 form-control @error('nickname') is-invalid @enderror" name="nickname"
+                value="{{ old('nickname') }}" placeholder="Apelido" required autocomplete="nickname">
+            @error('nickname')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
         <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid email is required: ex@abc.xyz"> <a
                 href="javascript:void(0)" class="input-group-text bg-white text-muted"> <i class="zmdi zmdi-email"
                     aria-hidden="true"></i> </a>

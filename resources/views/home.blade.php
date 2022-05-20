@@ -10,5 +10,11 @@
 @stop
 
 @section('conteudo')
+@auth
+Bem vindo {{ auth::user()->nickname }}!
+
+@else
+Faça login para postar uma noticia
+@endauth
 
 @stop
