@@ -9,17 +9,17 @@
             <div class="row">
                 <div class="form-group col-md-12 @if ($errors->has('senha_atual')) has-error @endif">
                     <Label class="form-label">Senha atual</Label>
-                    <input type="password" name="senha_atual" class="form-control">
+                    <input type="password" name="senha_atual" class="form-control" required>
                     {!! $errors->first('senha_atual', '<span style="color:red" class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group col-md-12 @if ($errors->has('password')) has-error @endif">
                     <Label class="form-label">Nova senha</Label>
-                    <input type="password" name="password" class="form-control">
+                    <input type="password" name="password" class="form-control" required>
                     {!! $errors->first('password', '<span style="color:red" class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group col-md-12 @if ($errors->has('password_confirmation')) has-error @endif">
                     <Label class="form-label">Repetir senha</Label>
-                    <input type="password" name="password_confirmation" class="form-control">
+                    <input type="password" name="password_confirmation" class="form-control" required>
                     {!! $errors->first('password_confirmation', '<span style="color:red" class="help-block">:message</span>') !!}
                 </div>
             </div>

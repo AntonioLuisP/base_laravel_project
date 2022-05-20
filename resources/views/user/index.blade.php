@@ -28,7 +28,7 @@
                                 <td>{{ $user->name }} </td>
                                 <td>{{ $user->email }} </td>
                                 <td style="width: 40px">
-                                    @include('layout.utils.table.buttonsIndex', [
+                                    @include('layout.utils.buttons.showButton', [
                                         'route' => 'user',
                                         'model' => $user,
                                     ])
@@ -40,5 +40,5 @@
             </div>
         </div>
     </div>
-    @include('layout.utils.layout.pagination', ['items' => $users, $links])
+    @include('layout.utils.pagination', ['items' => $users, $links])
 @stop

@@ -1,20 +1,9 @@
-@if ($errors->any())
-    <div class="alert alert-warning" role="alert">
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">
-            ×
-        </button>
-        @foreach ($errors->all() as $error)
-            <p>{{ $error }}</p>
-        @endforeach
-    </div>
-@endif
-
 @if (session('message'))
     <div class="alert alert-info" role="alert">
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">
             ×
         </button>
-        {{ session('message') }}
+        <strong>{{ session('message') }}</strong>
     </div>
 @endif
 
@@ -23,7 +12,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">
             ×
         </button>
-        {{ session('error') }}
+        <strong>{{ session('error') }}</strong>
     </div>
 @endif
 
@@ -32,6 +21,15 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">
             ×
         </button>
-        {{ session('info') }}
+        <strong>{{ session('info') }}</strong>
+    </div>
+@endif
+
+@if (session('success'))
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">
+            ×
+        </button>
+        <strong>{{ session('success') }}</strong>
     </div>
 @endif

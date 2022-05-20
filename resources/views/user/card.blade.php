@@ -15,9 +15,10 @@
     <div class="card-body pt-0">
         <div class="mt-2">
             <h3 class="fw-semibold">
-                {{ $user->name }}
+                {{ $user->nickname }}
             </h3>
         </div>
+        <p><i class="fe fe-user me-2 text-primary"></i>{{ $user->name }}</p>
         <p><i class="fe fe-mail me-2 text-primary"></i>{{ $user->email }}</p>
     </div>
 </div>

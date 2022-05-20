@@ -1,4 +1,4 @@
-@extends('layout.utils.form.modalForm', [
+@extends('layout.utils.modal.modalForm', [
     'id' => 'search',
     'btn_icon' => '',
     'btn_class' => 'btn-sm btn-outline-default',

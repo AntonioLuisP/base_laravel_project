@@ -1,4 +1,4 @@
-@extends('layout.utils.layout.modal', [
+@extends('layout.utils.modal.modal', [
     'id' => $id,
     'btn_icon' => $btn_icon,
     'btn_name' => $btn_name,

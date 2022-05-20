@@ -6,7 +6,7 @@ $currentRoute = \Route::currentRouteName();
     <div class="app-sidebar">
         <div class="side-header">
             <a class="header-brand1 fw-bold text-primary" href="{{ route('home') }}">
-                RH - UEMA
+                LubbLetters
             </a>
         </div>
         <div class="main-sidemenu">
