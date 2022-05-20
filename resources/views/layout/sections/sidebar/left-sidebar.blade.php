@@ -25,54 +25,12 @@ $currentRoute = \Route::currentRouteName();
                     </a>
                 </li>
                 <li class="sub-category">
-                    <h3>Setores</h3>
+                    <h3>Posts</h3>
                 </li>
                 <li>
-                    <a class="side-menu__item" href="{{ route('setor.index') }}" data-bs-toggle="slide">
-                        <i class="side-menu__icon fe fe-layers"></i>
-                        <span class="side-menu__label">Setores</span>
-                    </a>
-                </li>
-                <li class="sub-category">
-                    <h3>Cargos</h3>
-                </li>
-                <li>
-                    <a class="side-menu__item" href="{{ route('cargo.index') }}" data-bs-toggle="slide">
-                        <i class="side-menu__icon fe fe-briefcase"></i>
-                        <span class="side-menu__label">Cargos</span>
-                    </a>
-                </li>
-                <li class="sub-category">
-                    <h3>Colaboradores</h3>
-                </li>
-                <li>
-                    <a class="side-menu__item" data-bs-toggle="slide" href="{{ route('colaborador.index') }}">
+                    <a class="side-menu__item" href="{{ route('user.index') }}" data-bs-toggle="slide">
                         <i class="side-menu__icon fe fe-users"></i>
-                        <span class="side-menu__label">Colaboradores</span>
-                    </a>
-                </li>
-                <li class="sub-category">
-                    <h3>Pagamentos</h3>
-                </li>
-                <li>
-                    <a class="side-menu__item" data-bs-toggle="slide" href="{{ route('salario.index') }}">
-                        <i class="side-menu__icon fe fe-dollar-sign"></i>
-                        <span class="side-menu__label">Salários</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="side-menu__item" data-bs-toggle="slide" href="{{ route('folha_de_pagamento.index') }}">
-                        <i class="side-menu__icon fe fe-file"></i>
-                        <span class="side-menu__label">Folhas de Pagamento</span>
-                    </a>
-                </li>
-                <li class="sub-category">
-                    <h3>Férias</h3>
-                </li>
-                <li>
-                    <a class="side-menu__item" data-bs-toggle="slide" href="{{ route('ferias.index') }}">
-                        <i class="side-menu__icon fe fe-sun"></i>
-                        <span class="side-menu__label">Férias</span>
+                        <span class="side-menu__label">Posts</span>
                     </a>
                 </li>
             </ul>

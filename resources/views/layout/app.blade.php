@@ -9,8 +9,5 @@
             @include('layout.sections.footer.footer')
             <a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
         </div>
-
     </div>
-
-
 @endsection
