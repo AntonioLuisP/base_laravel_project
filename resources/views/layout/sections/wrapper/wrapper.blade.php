@@ -4,7 +4,6 @@
             <div class="page-header">
                 @yield("content_header")
             </div>
-
             @yield('conteudo')
         </div>
     </div>
