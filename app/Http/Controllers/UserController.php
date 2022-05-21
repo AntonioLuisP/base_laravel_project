@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     const ROUTE_VIEW = 'user';
+    const ITEMS_PER_SEARCH = 25;
 
     public function __construct(
         UserRepository $repository
@@ -22,7 +23,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $users = $this->repository->bigSearch($request->all())->paginate($request->has('quantidade') ? $request->quantidade : 25);
+        $users = $this->repository->bigSearch($request->all())->paginate($this::ITEMS_PER_SEARCH);
         $links = $users->appends($request->except('page'));
         return view($this::ROUTE_VIEW . '.index', compact('users', 'links'));
     }
@@ -43,7 +44,7 @@ class UserController extends Controller
         return redirect()->back()->with(['success' => "Alterado com sucesso"]);
     }
 
-    public function destroy(user $user, Request $request)
+    public function destroy(User $user, Request $request)
     {
         $this->authorize('delete', $user);
         $this->repository->delete($user);
