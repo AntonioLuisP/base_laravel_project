@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        $posts = Post::all();
+        return view('home', ['posts' => $posts]);
     }
 }

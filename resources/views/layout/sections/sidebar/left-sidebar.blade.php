@@ -28,7 +28,7 @@ $currentRoute = \Route::currentRouteName();
                     <h3>Posts</h3>
                 </li>
                 <li>
-                    <a class="side-menu__item" href="{{ route('user.index') }}" data-bs-toggle="slide">
+                    <a class="side-menu__item" href="{{ route('post.index') }}" data-bs-toggle="slide">
                         <i class="side-menu__icon fe fe-users"></i>
                         <span class="side-menu__label">Posts</span>
                     </a>
