@@ -10,7 +10,7 @@ class CreatePostTypesTable extends Migration
     {
         Schema::create('post_types', function (Blueprint $table) {
             $table->uuid('id')->unique();
-            $table->string('name');
+            $table->string('name', 25);
             $table->string('description')->nullable();
             $table->timestamps();
         });

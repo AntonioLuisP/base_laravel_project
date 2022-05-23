@@ -14,6 +14,7 @@ class Post extends BaseModel
         'title',
         'subtitle',
         'text',
+        'id_post_type',
         'id_user',
     ];
 
@@ -24,6 +25,7 @@ class Post extends BaseModel
         'title' => 'like',
         'subtitle' => 'like',
         'text' => 'like',
+        'id_post_type' => '=',
         'id_user' => '=',
     ];
 
@@ -33,5 +35,10 @@ class Post extends BaseModel
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user');
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(PostType::class, 'id_post_type');
     }
 }

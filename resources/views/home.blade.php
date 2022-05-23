@@ -100,7 +100,7 @@
                             -
                         </span>
                         <span class="tag tag-rounded">
-                            Tema
+                            {{ $post->type->name }}
                         </span>
                     </div>
                 </div>
