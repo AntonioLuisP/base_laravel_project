@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Models\PostType;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,6 +17,16 @@ class DatabaseSeeder extends Seeder
             'nickname' => 'Lubbuck',
             'email' => 'antonioluisp97@gmail.com',
             'password' => Hash::make('123456789'),
+        ]);
+        PostType::create([
+            'name'=> 'Inovation',
+            'description'=> 'Lubbuck',
+        ]);
+        Post::create([
+            'title'=> 'Novo projeto rodando',
+            'subtitle'=> 'Lubbuck',
+            'text'=> 'antonioluisp97@gmail.com',
+            'id_user'=> $user->id,
         ]);
         Post::create([
             'title' => 'Nova newsletter do lubbuck',

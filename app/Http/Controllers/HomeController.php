@@ -10,6 +10,6 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $posts = Post::all();
-        return view('home', ['posts' => $posts]);
+        return view('home', compact('posts'));
     }
 }
