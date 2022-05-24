@@ -10,6 +10,7 @@
                         <h6 class="mb-0 mt-1">
                             {{ $post->user->nickname }}
                         </h6>
+                        <small class="text-muted">{{ $post->createdAt() }}</small>
                     </div>
                 </div>
             </a>
@@ -21,14 +22,11 @@
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" href="javascript:void(0)">
+                        <a class="dropdown-item" href="{{ route('post.edit', ['post' => $post->id]) }}">
                             Editar
                         </a>
                         <a class="dropdown-item" href="javascript:void(0)">
                             Apagar
-                        </a>
-                        <a class="dropdown-item" href="javascript:void(0)">
-                            Configurações
                         </a>
                     </div>
                 </div>
@@ -52,33 +50,11 @@
         <div class="media mt-0">
             <div class="media-header me-2">
                 <div class="d-flex mt-1">
-                    <a class="new me-2 text-muted fs-16" href="JavaScript:void(0);">
-                        <span class=""><i class="fe fe-heart"></i></span>
-                    </a>
-                    <a class="new me-2 text-muted fs-16" href="JavaScript:void(0);">
-                        <span class=""><i class="fe fe-message-square"></i></span>
-                    </a>
-                    <a class="new me-2 text-muted fs-16" href="JavaScript:void(0);">
-                        <span class=""><i class="fe fe-share-2"></i></span>
-                    </a>
-                    <a class="new text-muted fs-16" href="JavaScript:void(0);">
-                        <span class=""><i class="fe fe-tag"></i></span>
-                    </a>
+                    {{-- @if($reque) --}}
+                    <a href="{{ route('post.show', ['post' => $post->id]) }}">Ver mais</a>
                 </div>
             </div>
             <div class="ms-auto mb-0 mt-2">
-                <span class=" me-2">
-                    {{ $post->createdAt() }}
-                </span>
-                <span class=" me-2">
-                    -
-                </span>
-                <span class=" me-2">
-                    Leitura de 5 min
-                </span>
-                <span class="me-2">
-                    -
-                </span>
                 <span class="tag tag-rounded">
                     {{ $post->theme->name }}
                 </span>

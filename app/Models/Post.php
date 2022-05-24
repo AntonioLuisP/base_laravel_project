@@ -14,7 +14,7 @@ class Post extends BaseModel
         'title',
         'subtitle',
         'text',
-        'id_post_type',
+        'id_post_theme',
         'id_user',
     ];
 
@@ -25,7 +25,7 @@ class Post extends BaseModel
         'title' => 'like',
         'subtitle' => 'like',
         'text' => 'like',
-        'id_post_type' => '=',
+        'id_post_theme' => '=',
         'id_user' => '=',
     ];
 

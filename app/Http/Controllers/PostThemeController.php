@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostThemeRequest;
 use App\Models\PostTheme;
-use App\Repositories\PostRepository;
+use App\Repositories\PostThemeRepository;
 
 class PostThemeController extends Controller
 {
@@ -26,11 +26,6 @@ class PostThemeController extends Controller
         return view($this::ITEM . '.index', ['post_themes' => $post_themes, 'links' => $links]);
     }
 
-    public function show(PostTheme $post_theme)
-    {
-        return view($this::ITEM . '.show', compact('post_theme'));
-    }
-
     public function create()
     {
         return view($this::ITEM . '.create');
@@ -39,7 +34,7 @@ class PostThemeController extends Controller
     public function store(PostThemeRequest $request)
     {
         $post_theme = $this->repository->create($request->all());
-        return redirect()->route($this::ITEM . '.show', ['post_theme' => $post_theme]);
+        return redirect()->route($this::ITEM . '.index');
     }
 
     public function edit(PostTheme $post_theme)

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostThemesRequest extends FormRequest
+class PostThemeRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,8 +14,7 @@ class PostThemesRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'between:2,25'],
         ];
     }
     public function messages()

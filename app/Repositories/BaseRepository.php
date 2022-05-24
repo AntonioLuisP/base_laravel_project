@@ -28,6 +28,11 @@ abstract class BaseRepository
         return $this->model->create($data);
     }
 
+    public function firstOrCreate(array $data)
+    {
+        return $this->model->firstOrCreate($data);
+    }
+
     public function insert(array $data)
     {
         return $this->model->insert($data);

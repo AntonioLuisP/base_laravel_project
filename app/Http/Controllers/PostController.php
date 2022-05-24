@@ -5,17 +5,24 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use App\Repositories\PostRepository;
+use App\Repositories\PostThemeRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
     const ITEM = 'post';
     const ITEMS_PER_SEARCH = 25;
-    protected $repository;
 
-    public function __construct(PostRepository $repository)
-    {
+    protected $repository;
+    protected $postThemeRepository;
+
+    public function __construct(
+        PostRepository $repository,
+        PostThemeRepository $postThemeRepository
+    ) {
         $this->repository = $repository;
+        $this->postThemeRepository = $postThemeRepository;
         $this->authorizeResource(Post::class, 'post');
     }
 
@@ -33,12 +40,13 @@ class PostController extends Controller
 
     public function create()
     {
-        return view($this::ITEM . '.create');
+        $themes = $this->postThemeRepository->all();
+        return view($this::ITEM . '.create', compact("themes"));
     }
 
     public function store(PostRequest $request)
     {
-        $post = $this->repository->create($request->all());
+        $post = $this->repository->create($request->validated() + ['id_user' => Auth::user()->id]);
         return redirect()->route($this::ITEM . '.show', ['post' => $post]);
     }
 
