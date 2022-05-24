@@ -9,13 +9,10 @@ class AuthServiceProvider extends ServiceProvider
 
     protected $policies = [
         'App\Models\User' => 'App\Policies\UserPolicy',
+        'App\Models\Post' => 'App\Policies\PostPolicy',
+        'App\Models\PostType' => 'App\Policies\PostTypePolicy',
     ];
 
-    /**
-     * Register any authentication / authorization services.
-     *
-     * @return void
-     */
     public function boot()
     {
         $this->registerPolicies();

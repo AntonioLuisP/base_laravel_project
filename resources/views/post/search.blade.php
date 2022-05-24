@@ -1,47 +1,15 @@
-@extends('utils.modal.searchModal')
+@extends('layout.utils.modal.searchModal')
 
 @section('form')
     <div class="row">
         <div class="form-group col-sm-12">
-            <label class="form-label">Nomeclatura</label>
-            <input type="text" name="nomenclatura" class="form-control" maxlength="45" placeholder="Nomenclatura"
-                value="{{ $_GET['nomenclatura'] ?? '' }}">
+            <label class="form-label">Nome</label>
+            <input type="text" name="name" class="form-control" maxlength="45" placeholder="Nome"
+                value="{{ $_GET['name'] ?? '' }}">
         </div>
-        <div class="form-group col-sm-6">
-            <label class="form-label">Nível</label>
-            <select class="form-control form-select" aria-label="Escolaridade" name="nivel">
-                <option value=""></option>
-                <option value="Nível Fundamental"
-                    {{ isset($_GET['nivel']) ? ($_GET['nivel'] === 'Nível Fundamental' ? 'selected' : '') : '' }}>
-                    Nível Fundamental
-                </option>
-                <option value="Nível Médio"
-                    {{ isset($_GET['nivel']) ? ($_GET['nivel'] === 'Nível Médio' ? 'selected' : '') : '' }}>
-                    Nível Médio
-                </option>
-                <option value="Nível Superior"
-                    {{ isset($_GET['nivel']) ? ($_GET['nivel'] === 'Nível Superior' ? 'selected' : '') : '' }}>
-                    Nível Superior
-                </option>
-                <option value="Pós Graduação"
-                    {{ isset($_GET['nivel']) ? ($_GET['nivel'] === 'Pós Graduação' ? 'selected' : '') : '' }}>
-                    Pós Graduação
-                </option>
-            </select>
-        </div>
-        <div class="form-group col-sm-6">
-            <label class="form-label">Categoria</label>
-            <select class="form-control form-select" aria-label="Escolaridade" name="categoria">
-                <option value=""></option>
-                <option value="Docente"
-                    {{ isset($_GET['categoria']) ? ($_GET['categoria'] === 'Docente' ? 'selected' : '') : '' }}>
-                    Docente
-                </option>
-                <option value="Técnico Administrativo"
-                    {{ isset($_GET['categoria']) ? ($_GET['categoria'] === 'Técnico Administrativo' ? 'selected' : '') : '' }}>
-                    Técnico Administrativo
-                </option>
-            </select>
+        <div class="form-group col-sm-12">
+            <label class="form-label">description</label>
+            <textarea name="description" class="form-control" cols="30" rows="3">{{ $_GET['description'] ?? '' }}</textarea>
         </div>
         <div class="form-group col-sm-5">
             <label class="form-label">Ordene</label>
@@ -50,12 +18,14 @@
                     {{ isset($_GET['field']) ? ($_GET['field'] === 'created_at' ? 'selected' : '') : '' }}>
                     Data de Criação
                 </option>
-                <option value="nomenclatura"
-                    {{ isset($_GET['field']) ? ($_GET['field'] === 'nomenclatura' ? 'selected' : '') : '' }}>
-                    Nomenclatura
+                <option value="name" {{ isset($_GET['field']) ? ($_GET['field'] === 'name' ? 'selected' : '') : '' }}>
+                    Nome
+                </option>
+                <option value="description" {{ isset($_GET['field']) ? ($_GET['field'] === 'description' ? 'selected' : '') : '' }}>
+                    description
                 </option>
             </select>
         </div>
-        @include('utils.form.formOrder', ['list' => $cargos])
+        @include('layout.utils.form.orderSearch', ['list' => $posts])
     </div>
 @stop

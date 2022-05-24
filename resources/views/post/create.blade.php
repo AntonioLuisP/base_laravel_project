@@ -1,11 +1,11 @@
 @extends('layout.app')
 
 @section('content_header')
-    @include('utils.layout.contentHeader', [
-        'title' => 'Criar Cargo',
+    @include('layout.utils.contentHeader', [
+        'title' => 'Criar Post',
         'items' => [
-            'Cargos' => route('cargo.index'),
-            'Criar Cargo' => null,
+            'Posts' => route('post.index'),
+            'Criar Post' => null,
         ],
     ])
 @stop
@@ -13,9 +13,9 @@
 @section('conteudo')
     <div class="card">
         <div class="card-body">
-            <form method="POST" action="{{ route('cargo.store') }}">
+            <form method="POST" action="{{ route('post.store') }}">
                 @csrf
-                @include('cargo.form')
+                @include('post.form')
             </form>
         </div>
     </div>

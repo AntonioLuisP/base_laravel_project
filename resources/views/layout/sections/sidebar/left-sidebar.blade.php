@@ -29,8 +29,14 @@ $currentRoute = \Route::currentRouteName();
                 </li>
                 <li>
                     <a class="side-menu__item" href="{{ route('post.index') }}" data-bs-toggle="slide">
-                        <i class="side-menu__icon fe fe-users"></i>
+                        <i class="side-menu__icon fe fe-list"></i>
                         <span class="side-menu__label">Posts</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="side-menu__item" href="{{ route('post.create') }}" data-bs-toggle="slide">
+                        <i class="side-menu__icon fe fe-edit"></i>
+                        <span class="side-menu__label">Escrever</span>
                     </a>
                 </li>
             </ul>

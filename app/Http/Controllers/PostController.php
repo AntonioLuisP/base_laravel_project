@@ -38,6 +38,7 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
+        dd($request);
         $post = $this->repository->create($request->all());
         return redirect()->route($this::ITEM . '.show', ['post' => $post]);
     }
@@ -60,18 +61,18 @@ class PostController extends Controller
         return redirect()->route('home');
     }
 
-    public function deleted(Request $request)
-    {
-        $this->authorize('view-any', Post::class);
-        $posts = $this->repository->bigSearch($request->all() + ['deleted_at' => null]);
-        $links = $posts->appends($request->except('page'));
-        return view($this::ROUTE_VIEW . '.deleted', compact('posts', 'links'));
-    }
+    // public function deleted(Request $request)
+    // {
+    //     $this->authorize('view-any', Post::class);
+    //     $posts = $this->repository->bigSearch($request->all() + ['deleted_at' => null]);
+    //     $links = $posts->appends($request->except('page'));
+    //     return view($this::ROUTE_VIEW . '.deleted', compact('posts', 'links'));
+    // }
 
-    public function restore($post, Request $request)
-    {
-        $this->authorize('restore', Post::class);
-        $this->repository->restore($post);
-        return redirect()->route($this::ROUTE_VIEW . '.show', ['post' => $especie]);
-    }
+    // public function restore($post, Request $request)
+    // {
+    //     $this->authorize('restore', Post::class);
+    //     $this->repository->restore($post);
+    //     return redirect()->route($this::ROUTE_VIEW . '.show', ['post' => $especie]);
+    // }
 }

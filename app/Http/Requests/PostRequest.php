@@ -18,7 +18,8 @@ class PostRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'subtitle' => ['required', 'string', 'max:255'],
             'text' => ['required', 'string'],
-            'id_cuser' => ['required', 'exists:users,id'],
+            'id_user' => ['required', 'exists:users,id'],
+            'id_user' => ['required', 'exists:users,id'],
 
         ];
     }

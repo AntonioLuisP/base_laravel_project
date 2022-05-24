@@ -1,11 +1,11 @@
 @extends('layout.app')
 
 @section('content_header')
-    @include('utils.layout.contentHeader', [
-        'title' => 'Editar Cargo',
+    @include('layout.utils.contentHeader', [
+        'title' => 'Editar Post',
         'items' => [
-            'Cargo' => route('cargo.show', ['cargo' => $cargo->id]),
-            'Editar Cargo' => null,
+            'Post' => route('post.show', ['post' => $post->id]),
+            'Editar Post' => null,
         ],
     ])
 @stop
@@ -13,10 +13,10 @@
 @section('conteudo')
     <div class="card">
         <div class="card-body">
-            <form method="POST" action="{{ route('cargo.update', ['cargo' => $cargo->id]) }}">
+            <form method="POST" action="{{ route('post.update', ['post' => $post->id]) }}">
                 @csrf
                 @method('PUT')
-                @include('cargo.form')
+                @include('post.form')
             </form>
         </div>
     </div>
