@@ -23,17 +23,17 @@
                             </a>
                             <input class="input100 form-control" name="password" type="password" placeholder="Senha">
                         </div>
+                        <div class="container-login100-form-btn">
+                            <button class="login100-form-btn btn-primary" type="submit">Login</button>
+                        </div>
                         <div class="text-end pt-4">
                             <p class="mb-0"><a href="{{ route('password.request')}}" class="text-primary ms-1">Esqueceu a
                                     senha?</a></p>
                         </div>
-                        <div class="container-login100-form-btn">
-                            <button class="login100-form-btn btn-primary" type="submit">Login</button>
-                        </div>
-                        {{-- <div class="text-center pt-3">
+                        <div class="text-center pt-3">
                             <p class="text-dark mb-0">Não tem uma conta?<a href="{{ route('register') }}"
                                     class="text-primary ms-1">Cadastre-se aqui</a></p>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
             </div>

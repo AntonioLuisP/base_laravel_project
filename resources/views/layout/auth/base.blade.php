@@ -49,7 +49,7 @@
                 <div class="col col-login mx-auto mt-7">
                     <div class="text-center">
                         <h2 class="fw-bold text-white">
-                            RH UEMA
+                            {{ env('APP_NAME') }}
                         </h2>
                     </div>
                 </div>
