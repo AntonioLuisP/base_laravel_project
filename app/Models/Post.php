@@ -37,8 +37,8 @@ class Post extends BaseModel
         return $this->belongsTo(User::class, 'id_user');
     }
 
-    public function type()
+    public function theme()
     {
-        return $this->belongsTo(PostType::class, 'id_post_type');
+        return $this->belongsTo(PostTheme::class, 'id_post_theme');
     }
 }

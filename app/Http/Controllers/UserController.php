@@ -51,20 +51,20 @@ class UserController extends Controller
         return redirect()->route('home');
     }
 
-    public function deleted(Request $request)
-    {
-        $this->authorize('view-any', User::class);
-        $users = $this->repository->bigSearch($request->all() + ['deleted_at' => null]);
-        $links = $users->appends($request->except('page'));
-        return view($this::ROUTE_VIEW . '.deleted', compact('users', 'links'));
-    }
+    // public function deleted(Request $request)
+    // {
+    //     $this->authorize('view-any', User::class);
+    //     $users = $this->repository->bigSearch($request->all() + ['deleted_at' => null]);
+    //     $links = $users->appends($request->except('page'));
+    //     return view($this::ROUTE_VIEW . '.deleted', compact('users', 'links'));
+    // }
 
-    public function restore($user, Request $request)
-    {
-        $this->authorize('restore', User::class);
-        $this->repository->restore($user);
-        return redirect()->route($this::ROUTE_VIEW . '.show', ['user' => $especie]);
-    }
+    // public function restore($user, Request $request)
+    // {
+    //     $this->authorize('restore', User::class);
+    //     $this->repository->restore($user);
+    //     return redirect()->route($this::ROUTE_VIEW . '.show', ['user' => $especie]);
+    // }
 
     public function passwordUpdate(User $user, PasswordRequest $request)
     {

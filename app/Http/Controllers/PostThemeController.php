@@ -60,18 +60,18 @@ class PostThemeController extends Controller
         return redirect()->route('home');
     }
 
-    public function deleted(Request $request)
-    {
-        $this->authorize('view-any', PostTheme::class);
-        $post_themes = $this->repository->bigSearch($request->all() + ['deleted_at' => null]);
-        $links = $post_themes->appends($request->except('page'));
-        return view($this::ROUTE_VIEW . '.deleted', compact('post_themes', 'links'));
-    }
+    // public function deleted(Request $request)
+    // {
+    //     $this->authorize('view-any', PostTheme::class);
+    //     $post_themes = $this->repository->bigSearch($request->all() + ['deleted_at' => null]);
+    //     $links = $post_themes->appends($request->except('page'));
+    //     return view($this::ROUTE_VIEW . '.deleted', compact('post_themes', 'links'));
+    // }
 
-    public function restore($post_theme, Request $request)
-    {
-        $this->authorize('restore', PostTheme::class);
-        $this->repository->restore($post_theme);
-        return redirect()->route($this::ROUTE_VIEW . '.show', ['post_theme' => $post_theme]);
-    }
+    // public function restore($post_theme, Request $request)
+    // {
+    //     $this->authorize('restore', PostTheme::class);
+    //     $this->repository->restore($post_theme);
+    //     return redirect()->route($this::ROUTE_VIEW . '.show', ['post_theme' => $post_theme]);
+    // }
 }

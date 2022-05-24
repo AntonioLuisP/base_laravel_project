@@ -80,7 +80,7 @@
                     -
                 </span>
                 <span class="tag tag-rounded">
-                    {{ $post->type->name }}
+                    {{ $post->theme->name }}
                 </span>
             </div>
         </div>

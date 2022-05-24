@@ -41,7 +41,7 @@ $currentRoute = \Route::currentRouteName();
                 </li>
                 <li>
                     <a class="side-menu__item" href="{{ route('post_theme.index') }}" data-bs-toggle="slide">
-                        <i class="side-menu__icon fe fe-edit"></i>
+                        <i class="side-menu__icon fe fe-tag"></i>
                         <span class="side-menu__label">Themas</span>
                     </a>
                 </li>
