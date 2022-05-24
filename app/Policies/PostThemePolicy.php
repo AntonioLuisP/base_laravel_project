@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\PostType;
+use App\Models\PostTheme;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PostTypePolicy
+class PostThemePolicy
 {
     use HandlesAuthorization;
 
@@ -15,7 +15,7 @@ class PostTypePolicy
         return true;
     }
 
-    public function view(User $logado, PostType $post_type)
+    public function view(User $logado, PostTheme $post_theme)
     {
         return true;
     }
@@ -25,12 +25,12 @@ class PostTypePolicy
         return true;
     }
 
-    public function update(User $logado, PostType $post_type)
+    public function update(User $logado, PostTheme $post_theme)
     {
         return true;
     }
 
-    public function delete(User $logado, PostType $post_type)
+    public function delete(User $logado, PostTheme $post_theme)
     {
         return true;
     }
@@ -40,7 +40,7 @@ class PostTypePolicy
         return true;
     }
 
-    public function forceDelete(User $logado, PostType $post_type)
+    public function forceDelete(User $logado, PostTheme $post_theme)
     {
         return true;
     }

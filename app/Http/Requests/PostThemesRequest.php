@@ -4,9 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostTypeRequest extends FormRequest
+class PostThemesRequest extends FormRequest
 {
-
     public function authorize()
     {
         return true;

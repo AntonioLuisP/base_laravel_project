@@ -10,7 +10,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         'App\Models\User' => 'App\Policies\UserPolicy',
         'App\Models\Post' => 'App\Policies\PostPolicy',
-        'App\Models\PostType' => 'App\Policies\PostTypePolicy',
+        'App\Models\PostTheme' => 'App\Policies\PostThemePolicy',
     ];
 
     public function boot()

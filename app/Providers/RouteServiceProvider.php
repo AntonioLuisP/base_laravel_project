@@ -20,6 +20,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $models_and_patterns = [
             'user' => $uuid_pattern,
+            'post' => $uuid_pattern,
+            'post_theme' => $uuid_pattern,
         ];
 
         //bind the model to the pattern,in the route, based on id

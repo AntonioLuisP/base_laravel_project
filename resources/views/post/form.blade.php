@@ -18,7 +18,12 @@
         required>{{ old('subtitle') ? old('subtitle') : $post->text ?? '' }}</textarea>
     {!! $errors->first('text', '<span style="color:red" class="help-block">:message</span>') !!}
 </div>
+<div class="form-group">
+    <label class="form-label">Tema</label>
+    <input type="text" class="form-control @if ($errors->has('id_post_theme')) is-invalid @endif" placeholder="Subítulo"
+        value="{{ old('id_post_theme') ? old('id_post_theme') : $post->id_post_theme ?? '' }}" aria-label="id_post_theme" name="id_post_theme"
+        required>
+    {!! $errors->first('id_post_theme', '<span style="color:red" class="help-block">:message</span>') !!}
+</div>
 
-<input type="hidden" name="id_user" value="{{ auth::id() }}">
-<input type="hidden" name="id_post_type" value="{{ auth::id() }}">
 @include('layout.utils.buttons.buttonSubmit')

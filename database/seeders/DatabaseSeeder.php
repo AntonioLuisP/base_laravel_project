@@ -10,7 +10,7 @@ class DatabaseSeeder extends Seeder
     {
         //try to follow the migratins order
         $this->call(UserSeeder::class);
-        $this->call(PostTypeSeeder::class);
+        $this->call(PostThemeSeeder::class);
         $this->call(PostSeeder::class);
     }
 }

@@ -3,16 +3,14 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\PostType;
+use App\Models\PostTheme;
 
-class PostTypeSeeder extends Seeder
+class PostThemeSeeder extends Seeder
 {
-
     public function run()
     {
-        PostType::create([
+        PostTheme::create([
             'name' => 'Inovation',
-            'description' => 'Lubbuck',
         ]);
     }
 }

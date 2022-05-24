@@ -15,12 +15,12 @@ class CreatePostsTable extends Migration
             $table->string('subtitle');
             $table->string('text');
             $table->uuid('id_user');
-            $table->uuid('id_post_type');
+            $table->uuid('id_post_theme');
             $table->timestamps();
         });
         Schema::table('posts', function (Blueprint $table) {
             $table->foreign('id_user')->references('id')->on('users');
-            $table->foreign('id_post_type')->references('id')->on('post_types');
+            $table->foreign('id_post_theme')->references('id')->on('post_themes');
             $table->softDeletes();
         });
     }
