@@ -9,7 +9,7 @@ class PostRequest extends FormRequest
 
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     public function rules()
@@ -18,8 +18,7 @@ class PostRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'subtitle' => ['required', 'string', 'max:255'],
             'text' => ['required', 'string'],
-            'id_user' => ['required', 'exists:users,id'],
-            'id_user' => ['required', 'exists:users,id'],
+            'id_post_type' => ['required', 'exists:post_types,id'],
 
         ];
     }
