@@ -34,7 +34,9 @@ class User extends Authenticatable
         });
     }
 
-    protected static $cascade_relations = [];
+    protected static $cascade_relations = [
+        'posts'
+    ];
 
     protected $fillable = [
         'name',
@@ -59,6 +61,11 @@ class User extends Authenticatable
     public function searchable()
     {
         return $this->searchable;
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'id_post_theme');
     }
 
     public function sendPasswordResetNotification($token)

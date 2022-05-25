@@ -14,47 +14,55 @@
                     </div>
                 </div>
             </a>
-            <div class="ms-auto">
-                <div class="dropdown show">
-                    <a class="new option-dots" href="JavaScript:void(0);" data-bs-toggle="dropdown">
-                        <span class="">
-                            <i class="fe fe-more-vertical"></i>
-                        </span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" href="{{ route('post.edit', ['post' => $post->id]) }}">
-                            Editar
+            @canany(['update', 'delete'], $post)
+                <div class="ms-auto">
+                    <div class="dropdown show">
+                        <a class="new option-dots" href="JavaScript:void(0);" data-bs-toggle="dropdown">
+                            <span class="">
+                                <i class="fe fe-more-vertical"></i>
+                            </span>
                         </a>
-                        <a class="dropdown-item" href="javascript:void(0)">
-                            Apagar
-                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            @can('update', $post)
+                                <a class="dropdown-item" href="{{ route('post.edit', ['post' => $post->id]) }}">
+                                    Editar
+                                </a>
+                            @endcan
+                            @can('delete', $post)
+                                <form action="{{ route('post.destroy', ['post' => $post->id]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="dropdown-item" type="submit"
+                                        onclick="return confirm('Tem certeza que deseja deletar esse registro?'); return false;">
+                                        Apagar
+                                    </button>
+                                </form>
+                            @endcan
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endcanany
         </div>
-        <a href="{{ route('post.show', ['post' => $post]) }}" class="text-black">
-            <div class="mt-1">
-                <h3 class="fw-bold">
-                    {{ $post->title }}
-                </h3>
-                <h5 class="fw-semibold text-muted">
-                    {{ $post->subtitle }}
-                </h5>
-                <p class="mb-0">
-                    {{ $post->text }}
-                </p>
-            </div>
-        </a>
-    </div>
-    <div class="card-footer user-pro-2">
-        <div class="media mt-0">
-            <div class="media-header me-2">
-                <div class="d-flex mt-1">
-                    {{-- @if($reque) --}}
-                    <a href="{{ route('post.show', ['post' => $post->id]) }}">Ver mais</a>
-                </div>
-            </div>
-            <div class="ms-auto mb-0 mt-2">
+        <div class="mt-1">
+            <h3 class="fw-bold">
+                {{ $post->title }}
+            </h3>
+            <h5 class="fw-semibold text-muted">
+                {{ $post->subtitle }}
+            </h5>
+            <p class="mb-0">
+                {{ $post->text }}
+            </p>
+        </div>
+        <div class="media mt-1">
+            @can('view', $post)
+                @if (!request()->is('post/' . $post->id))
+                    <div class="media-header me-2">
+                        <a href="{{ route('post.show', ['post' => $post->id]) }}" class="fw-bold">Ver mais</a>
+                    </div>
+                @endif
+            @endcan
+            <div class="ms-auto">
                 <span class="tag tag-rounded">
                     {{ $post->theme->name }}
                 </span>

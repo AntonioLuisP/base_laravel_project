@@ -15,5 +15,10 @@
         <div class="col-md-3">
             @include('user.card', ['user' => $user])
         </div>
+        <div class="col-md-9">
+            @foreach ($posts as $post)
+                @include('post.card', ['post' => $post])
+            @endforeach
+        </div>
     </div>
 @stop

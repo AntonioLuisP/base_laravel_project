@@ -45,13 +45,13 @@ class PostThemeController extends Controller
     public function update(PostTheme $post_theme, PostThemeRequest $request)
     {
         $this->repository->update($request->all(), $post_theme->id);
-        return redirect()->route($this::ITEM . '.show', ['post_theme' => $post_theme]);
+        return redirect()->route($this::ITEM . '.index');
     }
 
     public function destroy(PostTheme $post_theme, Request $request)
     {
         $this->authorize('delete', $post_theme);
-        $this->repository->delete($post_theme);
+        $this->repository->delete($post_theme->id);
         return redirect()->route('home');
     }
 
@@ -67,6 +67,6 @@ class PostThemeController extends Controller
     // {
     //     $this->authorize('restore', PostTheme::class);
     //     $this->repository->restore($post_theme);
-    //     return redirect()->route($this::ROUTE_VIEW . '.show', ['post_theme' => $post_theme]);
+    //     return redirect()->route($this::ROUTE_VIEW . '.index');
     // }
 }

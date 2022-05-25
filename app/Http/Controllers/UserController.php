@@ -7,6 +7,7 @@ use App\Http\Requests\PasswordRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use App\Repositories\PostRepository;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -14,10 +15,15 @@ class UserController extends Controller
     const ROUTE_VIEW = 'user';
     const ITEMS_PER_SEARCH = 25;
 
+    protected $repository;
+    protected $postRepository;
+
     public function __construct(
-        UserRepository $repository
+        UserRepository $repository,
+        PostRepository $postRepository
     ) {
         $this->repository = $repository;
+        $this->postRepository = $postRepository;
         $this->authorizeResource(User::class, 'user');
     }
 
@@ -30,7 +36,8 @@ class UserController extends Controller
 
     public function show(User $user, Request $request)
     {
-        return view($this::ROUTE_VIEW . '.show', ['user' => $user]);
+        $posts = $this->postRepository->bigSearch($request->all() + ['id_user', '=', $user->id ])->paginate($this::ITEMS_PER_SEARCH);
+        return view($this::ROUTE_VIEW . '.show', compact('user', 'posts'));
     }
 
     public function edit(User $user)

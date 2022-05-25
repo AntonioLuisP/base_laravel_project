@@ -11,7 +11,5 @@
 @stop
 
 @section('conteudo')
-
-@include('post.card', $post)
-
+    @include('post.card', $post)
 @stop

@@ -22,5 +22,11 @@ class PostTheme extends BaseModel
     ];
 
     protected static $cascade_relations = [
+        'posts'
     ];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'id_post_theme');
+    }
 }

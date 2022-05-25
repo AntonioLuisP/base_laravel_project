@@ -52,7 +52,8 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        return view($this::ITEM . '.edit', compact('post'));
+        $themes = $this->postThemeRepository->all();
+        return view($this::ITEM . '.edit', compact('post', 'themes'));
     }
 
     public function update(Post $post, PostRequest $request)

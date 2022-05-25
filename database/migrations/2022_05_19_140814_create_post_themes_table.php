@@ -10,7 +10,7 @@ class CreatePostThemesTable extends Migration
     {
         Schema::create('post_themes', function (Blueprint $table) {
             $table->uuid('id')->unique();
-            $table->string('name', 25);
+            $table->string('name', 25)->unique();
             $table->timestamps();
         });
         Schema::table('post_themes', function (Blueprint $table) {
