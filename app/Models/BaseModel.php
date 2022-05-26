@@ -2,28 +2,25 @@
 
 namespace App\Models;
 
+use App\Traits\ModelHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Laravel\Sanctum\HasApiTokens;
-use App\Traits\ModelHelper;
 use Ramsey\Uuid\Uuid;
 
 class BaseModel extends Model
 {
     use SoftDeletes, ModelHelper;
 
-    //array de chave/valor com os atributos
-    //da tabela e sua forma de pesquisa no banco
-    protected $searchable = [];
+    protected $primaryKey = 'id';
+
+    protected $keyType = 'string';
+
+    protected $dates = ['deleted_at'];
 
     //array com  o nome das funçoes que fazem relacionamento
     //e que representem tabelas que possuem como chave
     //estrangeira um id da tabela atual
     protected static $cascade_relations = [];
-
-    protected $primaryKey = 'id';
-
-    protected $keyType = 'string';
 
     public static function boot()
     {
@@ -42,10 +39,17 @@ class BaseModel extends Model
         });
     }
 
+    //array de chave/valor com os atributos
+    //da tabela e sua forma de pesquisa no banco
+    protected $searchable = [];
+
     public function searchable()
     {
         return $this->searchable;
     }
+
+    //atributos a serem salvos em uppercanse
+    protected $itensUpperCase = [];
 
     public static function create(array $attributes = [])
     {
@@ -69,47 +73,15 @@ class BaseModel extends Model
         return $this->fill($attributes)->save($options);
     }
 
-    public function setUpperCaseItensModel($data)
+    public static function deleteRelations($model, $relations = [])
     {
-        if (is_null($this->itensUpperCase)) {
-            return $data;
-        }
-
-        $itensUpperCase = $this->itensUpperCase;
-
-        foreach ($itensUpperCase as $key => $item) {
-            if (array_key_exists($item, $data)) {
-                $data[$item] = mb_strtoupper(mb_strtolower($data[$item]));
-            }
-        }
-
-        return $data;
-    }
-
-    public function setLowerCaseItensModel($data)
-    {
-        if (is_null($this->itensLowerCase)) {
-            return $data;
-        }
-
-        $itensLowerCase = $this->itensLowerCase;
-
-        foreach ($itensLowerCase as $key => $item) {
-            if (array_key_exists($item, $data)) {
-                $data[$item] = mb_strtolower(mb_strtoupper($data[$item]));
-            }
-        }
-
-        return $data;
-    }
-
-    public static function deleteRelations ($model, $relations=[]){
         foreach ($relations as $relation) {
             $model->{$relation}()->delete();
         }
     }
 
-    public static function restoreRelations ($model, $relations=[]){
+    public static function restoreRelations($model, $relations = [])
+    {
         foreach ($relations as $relation) {
             $model->{$relation}()->onlyTrashed()->restore();
         }

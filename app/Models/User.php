@@ -9,11 +9,24 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditMethods;
 use Ramsey\Uuid\Uuid;
+use Spatie\Permission\Traits\HasPermissions;
+use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements AuditMethods
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, ModelHelper;
+    //basic
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    //auditing
+    use Auditable;
+    //authorisation
+    use HasRoles, HasPermissions;
+    //helpers
+    use ModelHelper;
+
+    protected $primaryKey = 'id';
 
     protected $keyType = 'string';
 
@@ -35,11 +48,12 @@ class User extends Authenticatable
     }
 
     protected static $cascade_relations = [
-        'posts'
+        'posts',
     ];
 
     protected $fillable = [
         'name',
+        'nickname',
         'email',
         'password',
     ];
@@ -53,6 +67,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $dates = ['deleted_at'];
+
     protected $searchable = [
         'name' => 'like',
         'email' => 'like',
@@ -63,10 +79,38 @@ class User extends Authenticatable
         return $this->searchable;
     }
 
+    //atributos que devem ser salvos em uppercanse
+    protected $itensUpperCase = [
+    ];
+
+    public static function create(array $attributes = [])
+    {
+        $attributes = parent::setUpperCaseItensModel($attributes);
+
+        $model = new static($attributes);
+
+        $model->save();
+
+        return $model;
+    }
+
+    public function update(array $attributes = [], array $options = [])
+    {
+        $attributes = $this->setUpperCaseItensModel($attributes);
+
+        if (!$this->exists) {
+            return false;
+        }
+
+        return $this->fill($attributes)->save($options);
+    }
+
+    //start rellations functions
     public function posts()
     {
         return $this->hasMany(Post::class, 'id_post_theme');
     }
+    //end rellations functions
 
     public function sendPasswordResetNotification($token)
     {
