@@ -69,6 +69,14 @@ class User extends Authenticatable implements AuditMethods
 
     protected $dates = ['deleted_at'];
 
+    //atributos a serem auditados
+    protected $auditInclude = [
+        'name',
+        'nickname',
+        'email',
+        'password',
+    ];
+
     protected $searchable = [
         'name' => 'like',
         'email' => 'like',

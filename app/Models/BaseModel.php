@@ -5,17 +5,27 @@ namespace App\Models;
 use App\Traits\ModelHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditMethods;
 use Ramsey\Uuid\Uuid;
 
-class BaseModel extends Model
+class BaseModel extends Model implements AuditMethods
 {
-    use SoftDeletes, ModelHelper;
+    //basic
+    use SoftDeletes;
+    //auditing
+    use Auditable;
+    //helpers
+    use ModelHelper;
 
     protected $primaryKey = 'id';
 
     protected $keyType = 'string';
 
     protected $dates = ['deleted_at'];
+
+    //atributos a serem auditados
+    protected $auditInclude = [];
 
     //array com  o nome das funçoes que fazem relacionamento
     //e que representem tabelas que possuem como chave

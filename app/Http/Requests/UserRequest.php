@@ -15,11 +15,12 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'nickname' => ['nullable', 'string', 'max:255',  'unique:users'],
+            'nickname' => ['nullable', 'string', 'max:255', 'unique:users'],
         ];
     }
 
-    public function messages() {
+    public function messages()
+    {
         return trans('validation');
     }
 }

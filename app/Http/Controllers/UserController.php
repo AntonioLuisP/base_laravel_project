@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PasswordRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
-use App\Repositories\UserRepository;
 use App\Repositories\PostRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    const ROUTE_VIEW = 'user';
+    const ITEM = 'user';
     const ITEMS_PER_SEARCH = 25;
 
     protected $repository;
@@ -31,18 +31,18 @@ class UserController extends Controller
     {
         $users = $this->repository->bigSearch($request->all())->paginate($this::ITEMS_PER_SEARCH);
         $links = $users->appends($request->except('page'));
-        return view($this::ROUTE_VIEW . '.index', compact('users', 'links'));
+        return view($this::ITEM . '.index', compact('users', 'links'));
     }
 
     public function show(User $user, Request $request)
     {
-        $posts = $this->postRepository->bigSearch($request->all() + ['id_user', '=', $user->id ])->paginate($this::ITEMS_PER_SEARCH);
-        return view($this::ROUTE_VIEW . '.show', compact('user', 'posts'));
+        $posts = $this->postRepository->bigSearch($request->all() + ['id_user', '=', $user->id])->paginate($this::ITEMS_PER_SEARCH);
+        return view($this::ITEM . '.show', compact('user', 'posts'));
     }
 
     public function edit(User $user)
     {
-        return view($this::ROUTE_VIEW . '.edit', ['user' => $user]);
+        return view($this::ITEM . '.edit', ['user' => $user]);
     }
 
     public function update(User $user, UserRequest $request)
@@ -63,14 +63,14 @@ class UserController extends Controller
     //     $this->authorize('view-any', User::class);
     //     $users = $this->repository->bigSearch($request->all() + ['deleted_at' => null]);
     //     $links = $users->appends($request->except('page'));
-    //     return view($this::ROUTE_VIEW . '.deleted', compact('users', 'links'));
+    //     return view($this::ITEM . '.deleted', compact('users', 'links'));
     // }
 
     // public function restore($user, Request $request)
     // {
     //     $this->authorize('restore', User::class);
     //     $this->repository->restore($user);
-    //     return redirect()->route($this::ROUTE_VIEW . '.show', ['user' => $especie]);
+    //     return redirect()->route($this::ITEM . '.show', ['user' => $user]);
     // }
 
     public function passwordUpdate(User $user, PasswordRequest $request)
