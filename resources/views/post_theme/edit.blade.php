@@ -14,7 +14,6 @@
     <div class="card">
         <div class="card-body">
             <form method="POST" action="{{ route('post_theme.update', ['post_theme' => $post_theme->id]) }}">
-                @csrf
                 @method('PUT')
                 @include('post_theme.form')
             </form>

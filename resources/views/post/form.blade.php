@@ -1,3 +1,5 @@
+@csrf
+
 <div class="form-group">
     <label class="form-label">Título</label>
     <input type="text" class="form-control @if ($errors->has('title')) is-invalid @endif" placeholder="Título"

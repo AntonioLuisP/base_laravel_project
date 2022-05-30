@@ -14,7 +14,6 @@
     <div class="card">
         <div class="card-body">
             <form method="POST" action="{{ route('post.store') }}">
-                @csrf
                 @include('post.form')
             </form>
         </div>
