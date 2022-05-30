@@ -50,23 +50,16 @@
             <h5 class="fw-semibold text-muted">
                 {{ $post->subtitle }}
             </h5>
-            <p class="mb-0">
-                {{ $post->text }}
-            </p>
         </div>
-        <div class="media mt-1">
+        <div class="mt-2">
             @can('view', $post)
                 @if (!request()->is('post/' . $post->id))
-                    <div class="media-header me-2">
-                        <a href="{{ route('post.show', ['post' => $post->id]) }}" class="fw-bold">Ver mais</a>
-                    </div>
+                    <a href="{{ route('post.show', ['post' => $post->id]) }}" class="fw-bold">Ver mais</a>
                 @endif
             @endcan
-            <div class="ms-auto">
-                <span class="tag tag-rounded">
-                    {{ $post->theme->name }}
-                </span>
-            </div>
+            <span class="tag float-end">
+                {{ $post->theme->name }}
+            </span>
         </div>
     </div>
 </div>
