@@ -34,6 +34,11 @@ class RoleController extends Controller
         return view($this::ITEM . '.index', compact('roles', 'links'));
     }
 
+    public function show(Role $role)
+    {
+        return view($this::ITEM . '.show', compact('role'));
+    }
+
     public function create()
     {
         return view($this::ITEM . '.create');

@@ -30,6 +30,10 @@
                                 <td>{{ $role->name }} </td>
                                 <td style="width: 40px">
                                     <div class="btn-button">
+                                        @include('layout.utils.buttons.showButton', [
+                                            'route' => 'role',
+                                            'model' => $role,
+                                        ])
                                         @include('layout.utils.buttons.editButton', [
                                             'route' => 'role',
                                             'model' => $role,
