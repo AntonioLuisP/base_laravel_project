@@ -10,12 +10,6 @@
 @stop
 
 @section('conteudo')
-    <div class="btn-list mb-1">
-        <a class="btn btn-sm btn-primary" href="{{ route('permission.create') }}">
-            Adicionar
-        </a>
-        @include('permission.search', ['route' => route('permission.index')])
-    </div>
     <div class="card">
         <div class="card-body p-0">
             <div class="table-responsive">
@@ -30,11 +24,7 @@
                                 <td>{{ $permission->name }} </td>
                                 <td style="width: 40px">
                                     <div class="btn-button">
-                                        @include('layout.utils.buttons.editButton', [
-                                            'route' => 'permission',
-                                            'model' => $permission,
-                                        ])
-                                        @include('layout.utils.buttons.deleteButton', [
+                                        @include('layout.utils.buttons.showButton', [
                                             'route' => 'permission',
                                             'model' => $permission,
                                         ])
@@ -47,5 +37,4 @@
             </div>
         </div>
     </div>
-    @include('layout.utils.pagination', ['items' => $permissions, $links])
 @stop

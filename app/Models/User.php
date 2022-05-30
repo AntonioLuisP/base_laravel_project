@@ -87,6 +87,11 @@ class User extends Authenticatable implements AuditMethods
         return $this->searchable;
     }
 
+    public function isSuperAdmin()
+    {
+        return $this->hasRole('Super Admin') ? 'SIM' : 'NÃO';
+    }
+
     //atributos que devem ser salvos em uppercanse
     protected $itensUpperCase = [
     ];
