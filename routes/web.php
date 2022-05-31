@@ -21,13 +21,19 @@ Route::middleware('auth')->group(function () {
     // End Needed Routes
 
     //Start other routes
+    Route::get('/post/deleted', 'PostController@deleted')->name('post.deleted');
+    Route::post('/post/restore/{post}', 'PostController@restore')->name('post.restore');
     Route::resource('post', 'PostController');
 
+    Route::get('/post_theme/deleted', 'PostThemeController@deleted')->name('post_theme.deleted');
+    Route::post('/post_theme/restore/{post_theme}', 'PostThemeController@restore')->name('post_theme.restore');
     Route::resource('post_theme', 'PostThemeController')->except("show");
     //End other routes
 
     // Start basic user routes
     Route::prefix('/user')->group(function () {
+        Route::get('/deleted', 'UserController@deleted')->name('user.deleted');
+        Route::post('/restore/{user}', 'UserController@restore')->name('user.restore');
         Route::put('/{user}/update/password/', 'UserController@passwordUpdate')->name('user.password.update');
     });
     Route::resource('user', 'UserController')->except(['create', 'store']);

@@ -50,23 +50,22 @@ class PostThemeController extends Controller
 
     public function destroy(PostTheme $post_theme, Request $request)
     {
-        $this->authorize('delete', $post_theme);
         $this->repository->delete($post_theme->id);
-        return redirect()->route('home');
+        return redirect()->route($this::ITEM . '.index');
     }
 
-    // public function deleted(Request $request)
-    // {
-    //     $this->authorize('view-any', PostTheme::class);
-    //     $post_themes = $this->repository->bigSearch($request->all() + ['deleted_at' => null]);
-    //     $links = $post_themes->appends($request->except('page'));
-    //     return view($this::ROUTE_VIEW . '.deleted', compact('post_themes', 'links'));
-    // }
+    public function deleted(Request $request)
+    {
+        $this->authorize('restore', PostTheme::class);
+        $post_themes = $this->repository->bigDeletedSearch($request->all())->paginate($this::ITEMS_PER_SEARCH);
+        $links = $post_themes->appends($request->except('page'));
+        return view($this::ITEM . '.deleted', compact('post_themes', 'links'));
+    }
 
-    // public function restore($post_theme, Request $request)
-    // {
-    //     $this->authorize('restore', PostTheme::class);
-    //     $this->repository->restore($post_theme);
-    //     return redirect()->route($this::ROUTE_VIEW . '.index');
-    // }
+    public function restore($post_theme, Request $request)
+    {
+        $this->authorize('restore', PostTheme::class);
+        $this->repository->restore($post_theme);
+        return redirect()->route($this::ITEM . '.index');
+    }
 }

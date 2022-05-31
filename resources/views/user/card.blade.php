@@ -9,6 +9,10 @@
                     'route' => 'user',
                     'model' => $user,
                 ])
+                @include('layout.utils.buttons.deleteButton', [
+                    'route' => 'user',
+                    'model' => $user,
+                ])
             </div>
         @endcan
     </div>

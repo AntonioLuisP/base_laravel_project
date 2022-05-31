@@ -121,7 +121,7 @@ class User extends Authenticatable implements AuditMethods
     //start rellations functions
     public function posts()
     {
-        return $this->hasMany(Post::class, 'id_post_theme');
+        return $this->hasMany(Post::class, 'id_user');
     }
     //end rellations functions
 

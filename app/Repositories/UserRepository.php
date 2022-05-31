@@ -154,6 +154,31 @@ class UserRepository
         return $model;
     }
 
+    public function deletedWhereUnderWhere($sort, $search, $relations)
+    {
+        $model = $this->model->onlyTrashed();
+
+        if (!empty($search)) {
+            foreach ($search as $key => $value) {
+                switch ($value['type']) {
+                    case 'like':
+                        $model = $model->where($value['field'], "i" . $value['type'], "%{$value['term']}%");
+                        break;
+                    default:
+                        $model = $model->where($value['field'], $value['type'], $value['term']);
+                }
+            }
+        }
+
+        if (!empty($sort)) {
+            $model = $model->orderBy($sort['field'], $sort['sort']);
+        } else {
+            $model = $model->orderBy('created_at', 'desc');
+        }
+
+        return $model;
+    }
+
     public function request(array $requestParameters = null)
     {
         $sort = [];
@@ -182,5 +207,11 @@ class UserRepository
     {
         $request = $this->request($requestParameters);
         return $this->whereUnderWhere($request['sort'], $request['search'], $relations);
+    }
+
+    public function bigDeletedSearch(array $requestParameters = null, array $relations = [])
+    {
+        $request = $this->request($requestParameters);
+        return $this->deletedWhereUnderWhere($request['sort'], $request['search'], $relations);
     }
 }

@@ -36,7 +36,7 @@ class UserPolicy
 
     public function restore(User $logado)
     {
-        return $logado->id === $user->id;
+        return true;
     }
 
     public function forceDelete(User $logado, User $user)
