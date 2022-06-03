@@ -13,7 +13,6 @@
     <div class="btn-list mb-1">
         @include('post_theme.search', ['route' => route('post_theme.deleted')])
     </div>
-
     <div class="card">
         <div class="card-body p-0">
             <div class="table-responsive">

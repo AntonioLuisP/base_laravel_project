@@ -65,7 +65,7 @@ class PostController extends Controller
     public function destroy(Post $post, Request $request)
     {
         $this->repository->delete($post->id);
-        return redirect()->route('home');
+        return redirect()->route($this::ITEM . '.index');
     }
 
     public function deleted(Request $request)

@@ -51,7 +51,7 @@ class PostThemeController extends Controller
     public function destroy(PostTheme $post_theme, Request $request)
     {
         $this->repository->delete($post_theme->id);
-        return redirect()->route('home');
+        return redirect()->route($this::ITEM . '.index');
     }
 
     public function deleted(Request $request)

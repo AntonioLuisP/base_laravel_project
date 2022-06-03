@@ -20,7 +20,7 @@
                 <table class="table border text-nowrap text-md-nowrap table-bordered table-hover mb-0">
                     <thead>
                         <th>Título:</th>
-                        <th>Subtitulo:</th>
+                        <th>Subtítulo:</th>
                         <th>Criador por:</th>
                         <th></th>
                     </thead>
@@ -29,7 +29,7 @@
                             <tr>
                                 <td>{{ $post->title }}</td>
                                 <td>{{ $post->subtitle }}</td>
-                                <td>{{ $post->user->name }}</td>
+                                <td>{{ $post->user->nickname }}</td>
                                 <td style="width: 40px">
                                     @include('layout.utils.buttons.restoreButton', [
                                         'route' => 'post',
