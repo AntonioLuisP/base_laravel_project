@@ -28,7 +28,7 @@ class PostController extends Controller
 
     public function index(Request $request)
     {
-        $posts = $this->repository->bigSearch($request->all())->paginate($this::ITEMS_PER_SEARCH);
+        $posts = $this->repository->bigSearch($request->all(), false)->paginate(is_int($request->quantidade) ? $request->quantidade : $this::ITEMS_PER_SEARCH);
         $links = $posts->appends($request->except('page'));
         return view($this::ITEM . '.index', ['posts' => $posts, 'links' => $links]);
     }
@@ -58,29 +58,28 @@ class PostController extends Controller
 
     public function update(Post $post, PostRequest $request)
     {
-        $this->repository->update($request->all(), $post->id);
+        $this->repository->update($request->validated(), $post->id);
         return redirect()->route($this::ITEM . '.show', ['post' => $post]);
     }
 
     public function destroy(Post $post, Request $request)
     {
-        $this->authorize('delete', $post);
-        $this->repository->delete($post);
+        $this->repository->delete($post->id);
         return redirect()->route('home');
     }
 
-    // public function deleted(Request $request)
-    // {
-    //     $this->authorize('view-any', Post::class);
-    //     $posts = $this->repository->bigSearch($request->all() + ['deleted_at' => null]);
-    //     $links = $posts->appends($request->except('page'));
-    //     return view($this::ROUTE_VIEW . '.deleted', compact('posts', 'links'));
-    // }
+    public function deleted(Request $request)
+    {
+        $this->authorize('restore', Post::class);
+        $posts = $this->repository->bigSearch($request->all(), true)->paginate(is_int($request->quantidade) ? $request->quantidade : $this::ITEMS_PER_SEARCH);
+        $links = $posts->appends($request->except('page'));
+        return view($this::ITEM . '.deleted', compact('posts', 'links'));
+    }
 
-    // public function restore($post, Request $request)
-    // {
-    //     $this->authorize('restore', Post::class);
-    //     $this->repository->restore($post);
-    //     return redirect()->route($this::ROUTE_VIEW . '.show', ['post' => $especie]);
-    // }
+    public function restore($post, Request $request)
+    {
+        $this->authorize('restore', Post::class);
+        $post = $this->repository->restore($post);
+        return redirect()->route($this::ITEM . '.show', ['post' => $post]);
+    }
 }

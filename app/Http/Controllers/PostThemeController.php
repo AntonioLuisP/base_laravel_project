@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\PostThemeRequest;
 use App\Models\PostTheme;
 use App\Repositories\PostThemeRepository;
+use Illuminate\Http\Request;
 
 class PostThemeController extends Controller
 {
@@ -21,7 +21,7 @@ class PostThemeController extends Controller
 
     public function index(Request $request)
     {
-        $post_themes = $this->repository->bigSearch($request->all())->paginate($this::ITEMS_PER_SEARCH);
+        $post_themes = $this->repository->bigSearch($request->all(), false)->paginate(is_int($request->quantidade) ? $request->quantidade : $this::ITEMS_PER_SEARCH);
         $links = $post_themes->appends($request->except('page'));
         return view($this::ITEM . '.index', ['post_themes' => $post_themes, 'links' => $links]);
     }
@@ -33,7 +33,7 @@ class PostThemeController extends Controller
 
     public function store(PostThemeRequest $request)
     {
-        $post_theme = $this->repository->create($request->all());
+        $post_theme = $this->repository->create($request->validated());
         return redirect()->route($this::ITEM . '.index');
     }
 
@@ -44,29 +44,28 @@ class PostThemeController extends Controller
 
     public function update(PostTheme $post_theme, PostThemeRequest $request)
     {
-        $this->repository->update($request->all(), $post_theme->id);
+        $this->repository->update($request->validated(), $post_theme->id);
         return redirect()->route($this::ITEM . '.index');
     }
 
     public function destroy(PostTheme $post_theme, Request $request)
     {
-        $this->authorize('delete', $post_theme);
         $this->repository->delete($post_theme->id);
         return redirect()->route('home');
     }
 
-    // public function deleted(Request $request)
-    // {
-    //     $this->authorize('view-any', PostTheme::class);
-    //     $post_themes = $this->repository->bigSearch($request->all() + ['deleted_at' => null]);
-    //     $links = $post_themes->appends($request->except('page'));
-    //     return view($this::ROUTE_VIEW . '.deleted', compact('post_themes', 'links'));
-    // }
+    public function deleted(Request $request)
+    {
+        $this->authorize('restore', PostTheme::class);
+        $post_themes = $this->repository->bigSearch($request->all(), true)->paginate(is_int($request->quantidade) ? $request->quantidade : $this::ITEMS_PER_SEARCH);
+        $links = $post_themes->appends($request->except('page'));
+        return view($this::ITEM . '.deleted', compact('post_themes', 'links'));
+    }
 
-    // public function restore($post_theme, Request $request)
-    // {
-    //     $this->authorize('restore', PostTheme::class);
-    //     $this->repository->restore($post_theme);
-    //     return redirect()->route($this::ROUTE_VIEW . '.index');
-    // }
+    public function restore($post_theme, Request $request)
+    {
+        $this->authorize('restore', PostTheme::class);
+        $this->repository->restore($post_theme);
+        return redirect()->route($this::ITEM . '.index');
+    }
 }

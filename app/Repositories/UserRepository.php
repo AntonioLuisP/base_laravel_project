@@ -27,6 +27,11 @@ class UserRepository
         return $this->model->create($data);
     }
 
+    public function firstOrCreate(array $data)
+    {
+        return $this->model->firstOrCreate($data);
+    }
+
     public function insert(array $data)
     {
         return $this->model->insert($data);
@@ -37,7 +42,7 @@ class UserRepository
         $user = $this->find($id);
 
         $user->name = $data['name'];
-        if($data['nickname']){
+        if ($data['nickname']) {
             $user->nickname = $data['nickname'];
         }
 
@@ -68,6 +73,7 @@ class UserRepository
     public function restore($id)
     {
         $this->model->withTrashed()->find($id)->restore();
+        return $this->find($id);
     }
 
     public function all()
@@ -129,9 +135,15 @@ class UserRepository
         return $query->get();
     }
 
-    public function whereUnderWhere($sort, $search, $relations)
+    public function whereUnderWhere($sort, $search, $deleted, $relations)
     {
-        $model = $this->model->with($relations);
+        if ($deleted) {
+            $model = $this->model->onlyTrashed();
+        } else {
+            $model = $this->model;
+        }
+
+        $model = $model->with($relations);
 
         if (!empty($search)) {
             foreach ($search as $key => $value) {
@@ -178,9 +190,9 @@ class UserRepository
         return ['sort' => $sort, 'search' => $search];
     }
 
-    public function bigSearch(array $requestParameters = null, array $relations = [])
+    public function bigSearch(array $requestParameters = null, $deleted = false, array $relations = [])
     {
         $request = $this->request($requestParameters);
-        return $this->whereUnderWhere($request['sort'], $request['search'], $relations);
+        return $this->whereUnderWhere($request['sort'], $request['search'], $deleted, $relations);
     }
 }

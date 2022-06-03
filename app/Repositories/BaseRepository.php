@@ -59,12 +59,13 @@ abstract class BaseRepository
 
     public function delete($id)
     {
-        return $this->model->destroy($id);
+        $this->model->destroy($id);
     }
 
     public function restore($id)
     {
         $this->model->withTrashed()->find($id)->restore();
+        return $this->find($id);
     }
 
     public function all()
@@ -96,9 +97,15 @@ abstract class BaseRepository
         return $query->get();
     }
 
-    public function whereUnderWhere($sort, $search, $relations)
+    public function whereUnderWhere($sort, $search, $deleted, $relations)
     {
-        $model = $this->model->with($relations);
+        if ($deleted) {
+            $model = $this->model->onlyTrashed();
+        } else {
+            $model = $this->model;
+        }
+
+        $model = $model->with($relations);
 
         if (!empty($search)) {
             foreach ($search as $key => $value) {
@@ -145,10 +152,10 @@ abstract class BaseRepository
         return ['sort' => $sort, 'search' => $search];
     }
 
-    public function bigSearch(array $requestParameters = null, array $relations = [])
+    public function bigSearch(array $requestParameters = null, $deleted = false, array $relations = [])
     {
         $request = $this->request($requestParameters);
-        return $this->whereUnderWhere($request['sort'], $request['search'], $relations);
+        return $this->whereUnderWhere($request['sort'], $request['search'], $deleted, $relations);
     }
 
     public function getFillableModelFields()
