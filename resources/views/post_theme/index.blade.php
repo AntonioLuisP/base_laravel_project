@@ -32,18 +32,20 @@
                                     @include('post_theme.card', $post_theme)
                                 </td>
                                 <td style="width: 40px">
-                                    <div class="btn-group">
-                                        <a href="{{ route('post_theme.edit', ['post_theme' => $post_theme->id]) }}" class="btn btn-sm btn-warning">
-                                            <i class="fe fe-edit"></i>
-                                        </a>
-                                        <form action="{{ route('post_theme.destroy', ['post_theme' => $post_theme->id]) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-sm btn-block btn-danger" type="submit"
-                                                onclick="return confirm('Tem certeza que deseja deletar esse registro?'); return false;">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </form>
+                                    <div class="btn-list">
+
+                                        @can('update', $post_theme)
+                                            @include('layout.utils.buttons.editButton', [
+                                                'route' => 'post_theme',
+                                                'model' => $post_theme,
+                                            ])
+                                        @endcan
+                                        @can('delete', $post_theme)
+                                            @include('layout.utils.buttons.deleteButton', [
+                                                'route' => 'post_theme',
+                                                'model' => $post_theme,
+                                            ])
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>

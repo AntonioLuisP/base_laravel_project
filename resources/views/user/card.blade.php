@@ -3,14 +3,6 @@
         <h3 class="card-title text-muted">
             Usuário
         </h3>
-        @can('update', $user)
-            <div class="card-options">
-                @include('layout.utils.buttons.editButton', [
-                    'route' => 'user',
-                    'model' => $user,
-                ])
-            </div>
-        @endcan
     </div>
     <div class="card-body pt-0">
         <div class="mt-2">
