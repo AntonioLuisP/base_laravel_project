@@ -71,7 +71,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-        $user->givePermissionTo(config('sistema.permissions')[0]);
+        $user->givePermissionTo(config('sistema')['authorization']['permissions'][0]);
         return $user;
     }
 }

@@ -3,7 +3,7 @@
         <div class="d-flex">
             <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="#"></a>
             <a class="logo-horizontal text-center fw-bold text-primary" href="{{ route('home') }}">
-                TCC Ensinar
+                {{ config('sistema')['nome'] }}
             </a>
             <div class="d-flex order-lg-2 ms-auto header-right-icons">
                 <button class="navbar-toggler navresponsive-toggler d-md-none ms-auto" type="button"

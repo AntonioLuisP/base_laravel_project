@@ -14,7 +14,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/brand/favicon.ico') }}" />
 
     <!-- TITLE -->
-    <title>TCC Ensinar</title>
+    <title>{{ config('sistema')['nome'] }}</title>
 
     <!-- BOOTSTRAP CSS -->
     <link id="style" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
@@ -35,7 +35,8 @@
     <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet" />
 
     <!-- COLOR SKIN CSS -->
-    <link id="theme" rel="stylesheet" type="text/css" media="all" href="{{ asset('assets/colors/color1.css') }}" />
+    <link id="theme" rel="stylesheet" type="text/css" media="all"
+        href="{{ asset('assets/colors/color1.css') }}" />
 
 </head>
 
@@ -49,7 +50,7 @@
                 <div class="col col-login mx-auto mt-7">
                     <div class="text-center">
                         <h2 class="fw-bold text-white">
-                            TCC Ensinar
+                            {{ config('sistema')['nome'] }}
                         </h2>
                     </div>
                 </div>

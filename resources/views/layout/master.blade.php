@@ -14,7 +14,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/brand/favicon.ico') }}" />
 
     <!-- TITLE -->
-    <title>TCC Ensinar</title>
+    <title>{{ config('sistema')['nome'] }}</title>
 
     <!-- BOOTSTRAP CSS -->
     <link id="style" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
@@ -29,11 +29,12 @@
     <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet" />
 
     <!-- COLOR SKIN CSS -->
-    <link id="theme" rel="stylesheet" type="text/css" media="all" href="{{ asset('assets/colors/color1.css') }}" />
+    <link id="theme" rel="stylesheet" type="text/css" media="all"
+        href="{{ asset('assets/colors/color1.css') }}" />
 
     <!-- INTERNAL Switcher css -->
-    <link  rel="stylesheet" href="{{ asset('assets/switcher/css/switcher.css') }}" />
-    <link  rel="stylesheet" href="{{ asset('assets/switcher/demo.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/switcher/css/switcher.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/switcher/demo.css') }}" />
 
     <!--C3 CHARTS CSS -->
     <link href="{{ asset('assets/plugins/charts-c3/c3-chart.css') }}" rel="stylesheet" />

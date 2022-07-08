@@ -16,10 +16,10 @@ class UserSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $super_admin = Role::create(['name' => config('sistema.roles')[0]]);
+        $super_admin = Role::create(['name' => config('sistema')['authorization']['roles'][0]]);
         // possui todas as permissões pela regra Gate::before no AuthServiceProvider
 
-        foreach (config('sistema.permissions') as $permissao) {
+        foreach (config('sistema')['authorization']['permissions'] as $permissao) {
             $permission = Permission::create(['name' => $permissao]);
             $super_admin->givePermissionTo($permission);
         }
@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('123456789'),
         ]);
         $user->assignRole($super_admin);
-        $user->syncPermissions(config('sistema.permissions'));
+        $user->syncPermissions(config('sistema')['authorization']['permissions']);
         $user = User::create([
             'name' => 'Teste',
             'nickname' => 'teste',
@@ -39,6 +39,6 @@ class UserSeeder extends Seeder
             'password' => Hash::make('123456789'),
         ]);
         $user->assignRole($super_admin);
-        $user->syncPermissions(config('sistema.permissions'));
+        $user->syncPermissions(config('sistema')['authorization']['permissions']);
     }
 }
