@@ -10,6 +10,7 @@ use App\Repositories\PostRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -37,9 +38,21 @@ class UserController extends Controller
 
     public function show(User $user, Request $request)
     {
+        $permissions = Permission::select('name', 'id')->orderBy('name', 'asc')->get();
         $posts = $this->postRepository->bigSearch($request->all() + ['id_user' => $user->id])->paginate(is_int($request->quantidade) ? $request->quantidade : $this::ITEMS_PER_SEARCH);
         $links = $posts->appends($request->except('page'));
-        return view($this::ITEM . '.show', compact('user', 'posts', 'links'));
+        return view($this::ITEM . '.show', compact('user', 'posts', 'links', 'permissions'));
+    }
+
+    public function create()
+    {
+        return view($this::ITEM . '.create');
+    }
+
+    public function store(UserRequest $request)
+    {
+        $user = $this->repository->create($request->validated());
+        return redirect()->route($this::ITEM . '.show', ['user' => $user]);
     }
 
     public function edit(User $user)
@@ -49,7 +62,7 @@ class UserController extends Controller
 
     public function update(User $user, UserRequest $request)
     {
-        $this->repository->update($request->all(), $user->id, 'id');
+        $this->repository->update($request->validated(), $user->id);
         return redirect()->back()->with(['success' => "Alterado com sucesso"]);
     }
 
@@ -60,11 +73,22 @@ class UserController extends Controller
         return redirect()->back()->with(['success' => "Alterado com sucesso"]);
     }
 
+    public function permissionUpdate(User $user, Request $request)
+    {
+        //colocar as autorizations
+        $validated = $request->validate([
+            'permissions' => ['required', 'array', 'exists:permissions,id'],
+        ]);
+
+        $user->syncPermissions($validated['permissions']);
+        return redirect()->route($this::ITEM . '.show', ['user' => $user]);
+    }
+
     public function destroy(User $user, Request $request)
     {
         $this->repository->delete($user->id);
-        if (Auth::user()->id === $user->id) {
-            Auth::logout();
+        if (auth()->id() === $user->id) {
+            auth()->logout();
         }
         return redirect()->route($this::ITEM . '.index');
     }

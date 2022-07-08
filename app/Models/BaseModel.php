@@ -4,15 +4,12 @@ namespace App\Models;
 
 use App\Traits\ModelHelper;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditMethods;
 use Ramsey\Uuid\Uuid;
 
 class BaseModel extends Model implements AuditMethods
 {
-    //basic
-    use SoftDeletes;
     //auditing
     use Auditable;
     //helpers
@@ -22,15 +19,8 @@ class BaseModel extends Model implements AuditMethods
 
     protected $keyType = 'string';
 
-    protected $dates = ['deleted_at'];
-
     //atributos a serem auditados
     protected $auditInclude = [];
-
-    //array com  o nome das funçoes que fazem relacionamento
-    //e que representem tabelas que possuem como chave
-    //estrangeira um id da tabela atual
-    protected static $cascade_relations = [];
 
     public static function boot()
     {
@@ -38,14 +28,6 @@ class BaseModel extends Model implements AuditMethods
 
         static::creating(function ($model) {
             $model->{$model->primaryKey} = Uuid::uuid4();
-        });
-
-        static::deleting(function ($model) {
-            static::deleteRelations($model, static::$cascade_relations);
-        });
-
-        static::restored(function ($model) {
-            static::restoreRelations($model, static::$cascade_relations);
         });
     }
 
@@ -83,17 +65,4 @@ class BaseModel extends Model implements AuditMethods
         return $this->fill($attributes)->save($options);
     }
 
-    public static function deleteRelations($model, $relations = [])
-    {
-        foreach ($relations as $relation) {
-            $model->{$relation}()->delete();
-        }
-    }
-
-    public static function restoreRelations($model, $relations = [])
-    {
-        foreach ($relations as $relation) {
-            $model->{$relation}()->onlyTrashed()->restore();
-        }
-    }
 }

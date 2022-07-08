@@ -13,9 +13,15 @@ class UserRequest extends FormRequest
 
     public function rules()
     {
+        if ($this->method() == 'PUT' || $this->method() == 'PATCH') {
+            return [
+                'name' => ['required', 'string', 'max:255'],
+            ];
+        }
         return [
             'name' => ['required', 'string', 'max:255'],
-            'nickname' => ['nullable', 'string', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
 

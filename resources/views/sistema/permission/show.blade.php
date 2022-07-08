@@ -2,9 +2,10 @@
 
 @section('content_header')
     @include('layout.utils.contentHeader', [
-        'title' => 'Permissão',
+        'title' => 'Permissão e seus Usuários',
         'items' => [
-            'Permissões' => route('permission.index'),
+            'Sistema' => route('sistema.index'),
+            'Permissões' => route('sistema.permission.index'),
             'Permissão' => null,
         ],
     ])
@@ -13,12 +14,22 @@
 @section('conteudo')
     <div class="row">
         <div class="col-md-3">
-            @include('permission.card', ['permission' => $permission])
+            <div class="card">
+                <div class="card-header pb-0 border-bottom-0">
+                    <h3 class="card-title text-muted">
+                        Permissão
+                    </h3>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="mt-2">
+                        <h3 class="fw-bold">
+                            {{ $permission->name }}
+                        </h3>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-md-9">
-            <h4 class="fw-bold">
-                Usuários com esta permissão
-            </h4>
             <div class="card">
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -26,7 +37,6 @@
                             <thead>
                                 <th>Nome:</th>
                                 <th>Email:</th>
-                                <th style="width: 40px">Super Administrador</th>
                                 <th></th>
                             </thead>
                             <tbody>
@@ -34,14 +44,11 @@
                                     <tr>
                                         <td>{{ $user->name }} </td>
                                         <td>{{ $user->email }} </td>
-                                        <td style="width: 40px">{{ $user->isSuperAdmin() }} </td>
                                         <td style="width: 40px">
-                                            @hasrole('Super Admin')
-                                                <a href="{{ route('permission.user.edit', ['user' => $user->id]) }}"
-                                                    class="btn btn-sm btn-warning">
-                                                    <i class="fe fe-edit-2"> </i>
-                                                </a>
-                                            @endhasrole
+                                            @include('layout.utils.buttons.showButton', [
+                                                'route' => 'user',
+                                                'model' => $user,
+                                            ])
                                         </td>
                                     </tr>
                                 @endforeach

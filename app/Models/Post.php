@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\SoftDeleteHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends BaseModel
 {
-    use HasFactory;
+    use HasFactory, SoftDeleteHelper;
 
     protected $table = 'posts';
 
@@ -17,6 +18,8 @@ class Post extends BaseModel
         'id_post_theme',
         'id_user',
     ];
+
+    protected $dates = ['deleted_at'];
 
     protected $itensUpperCase = [
     ];

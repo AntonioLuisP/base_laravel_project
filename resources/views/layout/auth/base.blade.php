@@ -14,7 +14,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/brand/favicon.ico') }}" />
 
     <!-- TITLE -->
-    <title>{{ env('APP_NAME') }}</title>
+    <title>TCC Ensinar</title>
 
     <!-- BOOTSTRAP CSS -->
     <link id="style" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
@@ -49,7 +49,7 @@
                 <div class="col col-login mx-auto mt-7">
                     <div class="text-center">
                         <h2 class="fw-bold text-white">
-                            {{ env('APP_NAME') }}
+                            TCC Ensinar
                         </h2>
                     </div>
                 </div>

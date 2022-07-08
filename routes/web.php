@@ -7,18 +7,16 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::middleware('auth')->group(function () {
-    // Start Needed routes
-    Route::get('/auditoria', 'NeededControlls\AuditController@index')->name('audit.index');
-
-    Route::prefix('/permissao')->group(function () {
-        Route::get('/', 'NeededControlls\PermissionController@index')->name('permission.index');
-        Route::get('/{permission}', 'NeededControlls\PermissionController@show')->name('permission.show');
-        Route::prefix('/user')->group(function () {
-            Route::get('/{user}/edit', 'NeededControlls\PermissionUserController@edit')->name('permission.user.edit');
-            Route::put('/{user}/update', 'NeededControlls\PermissionUserController@update')->name('permission.user.update');
+    // Start sistema routes
+    Route::prefix('/sistema')->group(function () {
+        Route::get('/', 'SistemaControlls\SistemaController@index')->name('sistema.index');
+        Route::get('/auditoria', 'SistemaControlls\AuditController@index')->name('sistema.audit.index');
+        Route::prefix('/permissao')->group(function () {
+            Route::get('/', 'SistemaControlls\PermissionController@index')->name('sistema.permission.index');
+            Route::get('/{permission}', 'SistemaControlls\PermissionController@show')->name('sistema.permission.show');
         });
     });
-    // End Needed Routes
+    // End sistema Routes
 
     //Start other routes
     Route::get('/post/deleted', 'PostController@deleted')->name('post.deleted');
@@ -35,7 +33,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/deleted', 'UserController@deleted')->name('user.deleted');
         Route::post('/restore/{user}', 'UserController@restore')->name('user.restore');
         Route::put('/{user}/update/password/', 'UserController@passwordUpdate')->name('user.password.update');
+        Route::put('/{user}/update/permission', 'UserController@permissionUpdate')->name('user.permission.update');
     });
-    Route::resource('user', 'UserController')->except(['create', 'store']);
+    Route::resource('user', 'UserController');
     // End basic user routes
 });

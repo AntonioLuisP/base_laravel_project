@@ -1,4 +1,4 @@
-<button class="btn {{ isset($block) ? 'btn-block' : '' }} btn-sm btn-danger" type="submit"
+<button class="btn {{ isset($block) ? 'btn-block' : '' }} btn-sm btn-danger" type="submit" title="Excluir"
     onclick=" return confirm('Tem certeza que deseja deletar esse registro?') ? document.getElementById('formDelete{{ $model->id }}').submit() : false">
     <i class="fa fa-trash"> </i>
     {{ $text ?? '' }}

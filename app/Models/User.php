@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Notifications\ResetPasswordNotification;
 use App\Traits\ModelHelper;
+use App\Traits\SoftDeleteHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -18,13 +18,13 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable implements AuditMethods
 {
     //basic
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable;
     //auditing
     use Auditable;
     //authorisation
     use HasRoles, HasPermissions;
     //helpers
-    use ModelHelper;
+    use ModelHelper, SoftDeleteHelper;
 
     protected $primaryKey = 'id';
 
@@ -36,14 +36,6 @@ class User extends Authenticatable implements AuditMethods
 
         static::creating(function ($model) {
             $model->{$model->primaryKey} = Uuid::uuid4();
-        });
-
-        static::deleting(function ($model) {
-            static::deleteRelations($model, static::$cascade_relations);
-        });
-
-        static::restored(function ($model) {
-            static::restoreRelations($model, static::$cascade_relations);
         });
     }
 
@@ -69,6 +61,8 @@ class User extends Authenticatable implements AuditMethods
 
     protected $dates = ['deleted_at'];
 
+    protected $with = ['permissions', 'roles'];
+
     //atributos a serem auditados
     protected $auditInclude = [
         'name',
@@ -89,7 +83,7 @@ class User extends Authenticatable implements AuditMethods
 
     public function isSuperAdmin()
     {
-        return $this->hasRole('Super Admin') ? 'SIM' : 'NÃO';
+        return $this->hasRole('Super Administrador');
     }
 
     //atributos que devem ser salvos em uppercanse
@@ -128,19 +122,5 @@ class User extends Authenticatable implements AuditMethods
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
-    }
-
-    public static function deleteRelations($model, $relations = [])
-    {
-        foreach ($relations as $relation) {
-            $model->{$relation}()->delete();
-        }
-    }
-
-    public static function restoreRelations($model, $relations = [])
-    {
-        foreach ($relations as $relation) {
-            $model->{$relation}()->withTrashed()->restore();
-        }
     }
 }

@@ -14,7 +14,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/brand/favicon.ico') }}" />
 
     <!-- TITLE -->
-    <title>{{ env('APP_NAME') }}</title>
+    <title>TCC Ensinar</title>
 
     <!-- BOOTSTRAP CSS -->
     <link id="style" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
@@ -68,6 +68,9 @@
     <!-- BOOTSTRAP JS -->
     <script src="{{ asset('assets/plugins/bootstrap/js/popper.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+
+    <!-- SHOW PASSWORD JS -->
+    <script src="{{ asset('assets/js/show-password.min.js') }}"></script>
 
     <!-- SPARKLINE JS-->
     <script src="{{ asset('assets/js/jquery.sparkline.min.js') }}"></script>

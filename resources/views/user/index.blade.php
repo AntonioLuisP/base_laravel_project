@@ -11,6 +11,10 @@
 
 @section('conteudo')
     <div class="btn-list mb-1">
+        @include('layout.utils.buttons.addButton', [
+            'route' => 'user',
+            'text' => 'Usuário',
+        ])
         @include('user.search', ['route' => route('user.index')])
     </div>
     <div class="card">

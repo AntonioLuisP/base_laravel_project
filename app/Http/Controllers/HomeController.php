@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $posts = Post::all();
+        $posts = Post::with('theme')->get();
         return view('home', compact('posts'));
     }
 }

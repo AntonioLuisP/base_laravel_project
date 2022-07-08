@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\NeededControlls;
+namespace App\Http\Controllers\SistemaControlls;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -9,8 +9,7 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
-    const ITEM = 'permission';
-    const ITEMS_PER_SEARCH = 25;
+    const ITEM = 'sistema.permission';
 
     protected $permission;
 
@@ -30,7 +29,7 @@ class PermissionController extends Controller
 
     public function show(Permission $permission)
     {
-        $users = User::permission($permission->name)->get();
+        $users = User::permission($permission->name)->orderBy('name', 'asc')->get();
         return view($this::ITEM . '.show', compact('permission', 'users'));
     }
 }

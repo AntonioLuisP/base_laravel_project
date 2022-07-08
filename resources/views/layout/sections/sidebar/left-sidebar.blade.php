@@ -6,7 +6,7 @@ $currentRoute = \Route::currentRouteName();
     <div class="app-sidebar">
         <div class="side-header">
             <a class="header-brand1 fw-bold text-primary" href="{{ route('home') }}">
-                LubbLetters
+                TCC Ensinar
             </a>
         </div>
         <div class="main-sidemenu">
@@ -15,15 +15,6 @@ $currentRoute = \Route::currentRouteName();
                     <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z" />
                 </svg></div>
             <ul class="side-menu">
-                <li class="sub-category">
-                    <h3>Usuários</h3>
-                </li>
-                <li>
-                    <a class="side-menu__item" href="{{ route('user.index') }}" data-bs-toggle="slide">
-                        <i class="side-menu__icon fe fe-users"></i>
-                        <span class="side-menu__label">Usuários</span>
-                    </a>
-                </li>
                 <li class="sub-category">
                     <h3>Posts</h3>
                 </li>

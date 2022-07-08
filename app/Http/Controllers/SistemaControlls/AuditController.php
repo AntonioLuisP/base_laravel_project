@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\NeededControlls;
+namespace App\Http\Controllers\SistemaControlls;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -52,6 +52,6 @@ class AuditController extends Controller
         $audits = $audits->paginate(25);
         $links = $audits->appends($request->except('page'));
 
-        return view('audit.index', compact('audits', 'links'));
+        return view('sistema.audit.index', compact('audits', 'links'));
     }
 }

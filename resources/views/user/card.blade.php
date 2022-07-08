@@ -13,4 +13,11 @@
         <p><i class="fe fe-user me-2 text-primary"></i>{{ $user->name }}</p>
         <p><i class="fe fe-mail me-2 text-primary"></i>{{ $user->email }}</p>
     </div>
+    <div class="card-footer">
+        @forelse ($user->permissions as $permission)
+            {{ $permission->name }}{{ !$loop->last ? ', ' : '.' }}
+        @empty
+            Nenhum permissão.
+        @endforelse
+    </div>
 </div>

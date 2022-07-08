@@ -4,6 +4,7 @@
     @include('layout.utils.contentHeader', [
         'title' => 'Permissões',
         'items' => [
+            'Sistema' => route('sistema.index'),
             'Permissões' => null,
         ],
     ])
@@ -24,10 +25,10 @@
                                 <td>{{ $permission->name }} </td>
                                 <td style="width: 40px">
                                     <div class="btn-button">
-                                        @include('layout.utils.buttons.showButton', [
-                                            'route' => 'permission',
-                                            'model' => $permission,
-                                        ])
+                                        <a href="{{ route('sistema.permission.show', ['permission' => $permission->id]) }}"
+                                            class="btn btn-sm btn-secondary" title="Ver">
+                                            <i class="fe fe-search"></i>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>

@@ -9,8 +9,8 @@ trait ModelHelper
     //Text Helpers
     public function formatText($text, $max_text_size = 30)
     {
-        if (strlen($text) > $MAX_TEXT_SIZE) {
-            return substr($text, 0, $MAX_TEXT_SIZE) . '...';
+        if (strlen($text) > $max_text_size) {
+            return substr($text, 0, $max_text_size) . '...';
         }
         return $text;
     }
@@ -18,6 +18,11 @@ trait ModelHelper
     public function formatName($max_text_size = 30)
     {
         return $this->formatText($this->name, $max_text_size);
+    }
+
+    public function formatNome($max_text_size = 30)
+    {
+        return $this->formatText($this->nome, $max_text_size);
     }
 
     //uppercase helper

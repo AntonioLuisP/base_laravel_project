@@ -14,7 +14,12 @@
     <div class="row">
         <div class="col-md-3">
             @include('user.card', ['user' => $user])
-            @include('user.dangerZone', $user)
+            @include('user.permissions')
+            @include('layout.utils.buttons.dangerZone', [
+                'route' => 'user',
+                'model' => $user,
+                'text' => 'usuário',
+            ])
         </div>
         <div class="col-md-9">
             @foreach ($posts as $post)
